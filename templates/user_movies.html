@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users-Movie_Lists</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <header>
+    <h1>Your Favorite Movies!</h1>
+</header>
+<div class="container">
+    <ul class="movie-list">
+        {% for movie in users_movies %}
+        <li class="movie-item">
+            <h2>{{ movie.name }}</h2>
+            <p>Director: {{ movie.director }}</p>
+            <p>Year: {{ movie.year }}</p>
+            <p>Rating: {{ movie.rating }}</p>
+            <form action="/users/{{ user_id }}/delete_movie/{{ movie.id }}" method="POST" style="display: inline;">
+                <input type="hidden" name="user_id" value="{{ user_id }}">
+                <input type="hidden" name="movie_id" value="{{ movie.id }}">
+                <button type="submit">Delete</button>
+            </form>
+
+            <form action="/users/{{ user_id }}/edit_movie/{{ movie.id }}" method="GET" style="display: inline;">
+                <button type="submit">Edit</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+    <form action="/users/{{ user_id }}/add_movie" method="GET" style="display: inline;">
+        <button type="submit">Add Movie</button>
+    </form>
+    <footer>
+        <p>&copy; 2023 MovieWeb App. All rights reserved.</p>
+    </footer>
+</body>
+</html>
