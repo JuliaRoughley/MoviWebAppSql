@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from data_manager_interface import DataManagerInterface
+from DataManager.data_manager_interface import DataManagerInterface
 
 class SQLiteDataManager(DataManagerInterface):
     def __init__(self, db_file_name):
@@ -8,7 +8,11 @@ class SQLiteDataManager(DataManagerInterface):
 
     def get_all_users(self):
         """To get a list of all the users who have an account in the moviweb app"""
-        pass
+        sql_query = "SELECT name FROM users"
+        result = self.db.engine.execute(sql_query)
+
+        user_names = [row[0] for row in result]
+        return user_names
 
    
     def get_user_movies(self, user_id):

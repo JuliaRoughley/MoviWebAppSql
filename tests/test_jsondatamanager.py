@@ -26,5 +26,3 @@ def test_jsondata_get_ids():
     print(test_ids)
     assert test_ids[0] == 1
     assert test_ids[1] == 2
-
-test_jsondata_get_ids()
